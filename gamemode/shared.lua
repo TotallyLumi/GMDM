@@ -36,9 +36,6 @@ function GM:CalcView( ply, origin, angle, fov )
         angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
         angle.pitch = angle.pitch + math.sin( WalkTimer * 0.5 ) * VelSmooth * 0.001
     end
-    
-    // Fix for old function "HeadshotAngles" which doesn't exist anymore
-    angle = angle + ply:GetAimVector():Angle()
 
     return self.BaseClass:CalcView( ply, origin, angle, fov )
 end
