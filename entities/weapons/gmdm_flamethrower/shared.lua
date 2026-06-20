@@ -15,7 +15,7 @@ SWEP.WorldModel			= "models/weapons/w_smg1.mdl"
 
 function SWEP:Initialize()
 
-	self:SetWeaponHoldType( "smg" )
+	self:SetHoldType( "smg" )
 	
 end
 
@@ -46,7 +46,8 @@ function SWEP:PrimaryAttack()
 		effectdata:SetAttachment( 1 )
 	util.Effect( "flamethrower", effectdata )
 	
-	self.Owner:Recoil( mathx.Rand( -0.5, 0.5 ), mathx.Rand( -0.5, 0.5 ) )
+	self.Owner:Recoil( math.Rand( -0.5, 0.5 ), math.Rand( -0.5, 0.5 ) )
+	
 	self:TakePrimaryAmmo( 1 )
 	
 if ( SERVER ) then

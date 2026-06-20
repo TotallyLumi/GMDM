@@ -19,7 +19,11 @@ end
 
 function SWEP:Initialize()
 
-	self:SetWeaponHoldType( "smg" )
+	if (cvars.Bool( "gmdm_wmodels_holdfix", true )) then
+		self:SetHoldType( "shotgun" )
+	else
+		self:SetHoldType( "smg" )
+	end
 	self:SetNeedsPump( false )
 	
 	self.LastTime = 0;
@@ -57,7 +61,7 @@ function SWEP:PrimaryAttack()
 	
 	return end
 
-	self:GMDMShootBullet( 12, "Weapon_Shotgun.Single", -5, mathx.Rand( -5, 5 ), 4, 0.1 )
+	self:GMDMShootBullet( 12, "Weapon_Shotgun.Single", -5, math.Rand( -5, 5 ), 4, 0.1 )
 	
 	
 	self:TakePrimaryAmmo(1)
@@ -95,7 +99,7 @@ function SWEP:SecondaryAttack()
 	
 	return end
 
-	self:GMDMShootBullet( 8, sndDblShoot, -20, mathx.Rand( -15, 15 ), 20, 0.2 )
+	self:GMDMShootBullet( 8, sndDblShoot, -20, math.Rand( -15, 15 ), 20, 0.2 )
 	
 	
 	self:TakePrimaryAmmo(2)

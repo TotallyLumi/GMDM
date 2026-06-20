@@ -11,7 +11,7 @@ SWEP.WorldModel			= "models/weapons/w_grenade.mdl"
 
 function SWEP:Initialize()
 
-	self:SetWeaponHoldType( "grenade" )
+	self:SetHoldType( "grenade" )
 	
 end
 

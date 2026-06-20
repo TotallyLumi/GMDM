@@ -2,6 +2,19 @@
 {
     "base"          "base"
     "title"         "Garry's Mod Deathmatch"
+    "maps"          "^gmdm_"
     "category"      "pvp"
     "menusystem"    "1"
+
+    "settings"
+    {
+        1
+        {
+            "name"      "gmdm_wmodels_holdfix"
+            "text"      "Correct Gun World Models"
+            "help"      "Corrects the Gun World Models held by Players"
+            "type"      "CheckBox"
+            "default"   "1"
+        }
+    }
 }
