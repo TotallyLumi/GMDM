@@ -4,6 +4,16 @@ AddCSLuaFile( "shared.lua" )
 
 include('shared.lua')
 
+local function SpawnRespawnEffect( ent )
+	if not IsValid( ent ) then return end
+
+	local effectdata = EffectData()
+	effectdata:SetOrigin(ent:GetPos())
+	effectdata:SetEntity( ent )
+
+	util.Effect( "itemrespawn", effectdata )
+end
+
 /*---------------------------------------------------------
    Name: Initialize
 ---------------------------------------------------------*/
@@ -61,15 +71,16 @@ function ENT:Touch( entity )
 	
 	self:SetActiveTime( CurTime() + RespawnTime )
 	
-	local f = function ( pos )
+	-- local f = function ( pos )
+	-- 	local effectdata = EffectData()
+	-- 	effectdata:SetOrigin( pos )
+	-- 	util.Effect( "itemrespawn", effectdata )
+	-- end
 	
-		local effectdata = EffectData()
-		effectdata:SetOrigin( pos )
-		util.Effect( "itemrespawn", effectdata )
-	
-	end
-	
-	timer.Simple( RespawnTime, f, self.Entity:GetPos() )	
+	timer.Simple( RespawnTime, function()
+		if not IsValid( self ) then return end
+		SpawnRespawnEffect( self )
+	end)	
 
 end
 

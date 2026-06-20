@@ -83,7 +83,7 @@ function ENT:Draw()
 		local RefractAmount = 0.00
 		RefractAmount = RefractAmount + ( math.sin( CurTime() * 2 ) * 0.05 ) // Make the refraction bounce
 		RefractAmount = RefractAmount *  Distance// Refract less the further away you are
-		matRefraction:SetMaterialFloat( "$refractamount", RefractAmount * -1 )
+		matRefraction:SetFloat( "$refractamount", RefractAmount * -1 )
 		render.SetMaterial( matRefraction )
 		render.UpdateScreenEffectTexture()
 		render.DrawSprite( Pos, 180, 190 )
@@ -111,7 +111,8 @@ function ENT:Draw()
 	DrawBox( Pos, 38 + math.sin( CurTime() * 20 ) * 5, CurTime(), 180 )
 	
 	render.SetMaterial( matName )	
-	matName:SetMaterialTexture( "$basetexture", rtName )
+	-- matName:SetMaterialTexture( "$basetexture", rtName )
+	matName:SetTexture( "$baseTexture", rtName )
 	local rot = CurTime()
 	local Fwd = Vector( math.sin( rot ), math.cos( rot ), 0 )
 	local Lft = Vector( math.sin( rot + math.pi/2 ), math.cos( rot + math.pi/2 ), 0 )
