@@ -1,4 +1,17 @@
 
+function SWEP:Recoil( pitch, yaw )
+	if ( SERVER && game.SinglePlayer == true ) then 
+		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )
+		return 
+	end
+	
+	self:GetTable().RecoilYaw = self:GetTable().RecoilYaw or 0
+	self:GetTable().RecoilPitch = self:GetTable().RecoilPitch or 0
+	
+	self:GetTable().RecoilYaw = self:GetTable().RecoilYaw 		+ yaw
+	self:GetTable().RecoilPitch = self:GetTable().RecoilPitch 	+ pitch
+end
+
 /*---------------------------------------------------------
    Name: SWEP:PrimaryAttack( )
    Desc: +attack1 has been pressed
@@ -10,7 +23,7 @@ function SWEP:GMDMShootBullet( dmg, snd, pitch, yaw, numbul, cone )
 
 	self.Weapon:EmitSound( snd )
 	self:GMDMShootBulletEx( dmg, numbul, cone, 1 )
-	-- self.Owner:Recoil( pitch, yaw )
+	self:Recoil( pitch, yaw )
 	
 	// Make gunsmoke
 	local effectdata = EffectData()

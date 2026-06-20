@@ -8,10 +8,18 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel			= "models/weapons/v_smg1.mdl"
 SWEP.WorldModel			= "models/weapons/w_smg1.mdl"
 
-
-
-
-
+function SWEP:Recoil( pitch, yaw )
+	if ( SERVER && game.SinglePlayer == true ) then 
+		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )
+		return 
+	end
+	
+	self:GetTable().RecoilYaw = self:GetTable().RecoilYaw or 0
+	self:GetTable().RecoilPitch = self:GetTable().RecoilPitch or 0
+	
+	self:GetTable().RecoilYaw = self:GetTable().RecoilYaw 		+ yaw
+	self:GetTable().RecoilPitch = self:GetTable().RecoilPitch 	+ pitch
+end
 
 function SWEP:Initialize()
 
@@ -46,7 +54,7 @@ function SWEP:PrimaryAttack()
 		effectdata:SetAttachment( 1 )
 	util.Effect( "flamethrower", effectdata )
 	
-	self.Owner:Recoil( math.Rand( -0.5, 0.5 ), math.Rand( -0.5, 0.5 ) )
+	self:Recoil( math.Rand( -0.5, 0.5 ), math.Rand( -0.5, 0.5 ) )
 	
 	self:TakePrimaryAmmo( 1 )
 	
