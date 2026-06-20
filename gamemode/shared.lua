@@ -36,8 +36,9 @@ function GM:CalcView( ply, origin, angle, fov )
         angle.roll = angle.roll + math.sin( WalkTimer ) * VelSmooth * 0.001
         angle.pitch = angle.pitch + math.sin( WalkTimer * 0.5 ) * VelSmooth * 0.001
     end
-
-    -- angle = angle + ply:HeadshotAngles()
+    
+    // Fix for old function "HeadshotAngles" which doesn't exist anymore
+    angle = angle + ply:GetAimVector():Angle()
 
     return self.BaseClass:CalcView( ply, origin, angle, fov )
 end
@@ -53,11 +54,4 @@ end
 function GM:PlayerTraceAttack( ply, dmginfo, dir, trace )
     ply:TraceAttack( dmginfo, dir, trace )
     return true 
-end
-
-function GM:Think()
-    local PlayerList = player.GetAll()
-    for k, pl in pairs(PlayerList) do
-        -- pl:Think()
-    end
 end
