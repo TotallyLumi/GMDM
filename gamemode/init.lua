@@ -5,6 +5,35 @@ AddCSLuaFile( "cl_postprocess.lua" )
 
 include( 'shared.lua' )
 
+function GM:SetFireTime( pl, add )
+    pl:SetNetworkedFloat( "FireTime", CurTime() + add)
+end
+
+function GM:SetVar( pl, name, value )
+    if not IsValid( pl ) then return end
+
+    if IsEntity( value ) then
+        pl:SetNWEntity( name, value )
+    elseif isnumber( value ) then
+        pl:SetNWFloat( name, value )
+    elseif isstring( value ) then
+        pl:SetNWString( name, value )
+    elseif isbool( value ) then
+        pl:SetNWBool( name, value )
+    else
+        print("Warning: Attempted to set NW var with unsupported type: " .. type( value ) )
+    end
+
+    -- pl:SetNetworkedFloat( name, value )
+end
+
+function GM:GMDM_Extinguish( pl )
+    if not IsValid( pl ) then return end
+
+    self:SetFireTime( pl, -1 )
+    self:SetVar( pl, "FireAttacker", NULL )
+end
+
 function GM:EntitytakeDamage( ent, inflictor, attacker, amount )
     if ( ent:IsPlayer() ) then
         ent:OnTakeDamage( inflictor, attacker, amount )
@@ -24,7 +53,7 @@ end
 
 function GM:PlayerSpawn( pl )
     self.BaseClass:PlayerSpawn( pl )
-    -- pl:GMDM_Extinguish()
+    self:GMDM_Extinguish( pl )
 
     // Make the jump height a bit higher
     pl:SetGravity( 0.75 )
