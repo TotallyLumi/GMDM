@@ -3,7 +3,7 @@ include('shared.lua')
 
 -- surface.CreateFont( "coolvetica", 24, 500, true, false, "GMDMPickup" )
 surface.CreateFont( "GMDMPickup", {
-	font = "Cooolvetica",
+	font = "Coolvetica",
 	size = 24,
 	weight = 500,
 } )
