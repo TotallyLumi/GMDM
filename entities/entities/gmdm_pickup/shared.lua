@@ -58,15 +58,27 @@ end
 
 
 function ENT:GetPickupName()
-	return PickupTypes[ self:GetPickupType() ].name
+	local t = PickupTypes[ self.GetPickupType() ]
+
+	if not t or not t.name then
+		return "GMDM Gun"
+	end
+
+	return tostring( t.name )
 end
 
 function ENT:GetPickupType()
-	return self.Entity:GetNetworkedInt( 0 )
+	return self:GetNWInt( 0, 1 )
 end
 
 function ENT:GetNiceName()
-	return "" .. PickupTypes[ self:GetPickupType() ].nicename
+	local t = PickupTypes[ self:GetPickupType() ]
+
+	if not t or not t.nicename then
+		return "GMDM Gun"
+	end
+
+	return tostring( t.nicename )
 end
 
 function ENT:DoAmmoGive( ply )

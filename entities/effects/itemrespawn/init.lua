@@ -10,7 +10,7 @@ function EFFECT:Init( data )
 	local NumParticles = 0
 	local Pos = data:GetOrigin() + Vector(0,0,32)
 	
-	WorldSound( "weapons/slam/mine_mode.wav", Pos, 140 )
+	sound.Play( "weapons/slam/mine_mode.wav", Pos, 140, 100, 1 )
 
 	local emitter = ParticleEmitter( Pos )
 	
