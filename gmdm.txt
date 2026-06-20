@@ -1,0 +1,7 @@
+"gmdm"
+{
+    "base"          "base"
+    "title"         "Garry's Mod Deathmatch"
+    "category"      "pvp"
+    "menusystem"    "1"
+}
