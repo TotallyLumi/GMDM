@@ -8,6 +8,17 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel			= "models/weapons/v_grenade.mdl"
 SWEP.WorldModel			= "models/weapons/w_grenade.mdl"
 
+function SWEP:GetCustomAmmo( name )
+	return self:GetNWInt( "ammo_" .. name )
+end
+
+function SWEP:SetCustomAmmo( name, num )
+	return self:SetNWInt( "ammo_" .. name, num )
+end
+
+function SWEP:AddCustomAmmo( name, num )
+	return self:SetCustomAmmo( name, self:GetCustomAmmo( name ) + num )
+end
 
 function SWEP:Initialize()
 
@@ -42,7 +53,7 @@ function SWEP:Think()
 
 	if ( SERVER ) then
 	
-		self.Owner:DrawViewModel( self.Owner:GetCustomAmmo( "tripmine" ) > 0 )
+		self.Owner:DrawViewModel( self:GetCustomAmmo( "tripmine" ) > 0 )
 	
 	end
 
@@ -56,9 +67,9 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.1 )
 	self.Weapon:SetNextPrimaryFire( CurTime() + 0.1 )
 	
-	if ( self.Owner:GetCustomAmmo( "tripmine" ) <= 0 ) then return end
+	if ( self:GetCustomAmmo( "tripmine" ) <= 0 ) then return end
 	
-	self.Owner:AddCustomAmmo( "tripmine", -1 )
+	self:AddCustomAmmo( "tripmine", -1 )
 
 	self.Weapon:SendWeaponAnim( ACT_VM_PULLBACK_HIGH )
 	
