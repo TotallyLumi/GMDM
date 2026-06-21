@@ -9,11 +9,11 @@ The current weapons, that do work inside of this Gamemode are:
 - Pistol
 - SMG
 - Shotgun
+- Flamethrower
 
 Current weapons, that currently don't work:
 
 - Tripmine
-- Flamethrower
 
 Current weapons, that currently haven't been tested:
 
