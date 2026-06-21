@@ -33,7 +33,7 @@ function EFFECT:Init( data )
 				particle:SetRoll( math.Rand( 0, 360 ) )
 				particle:SetRollDelta( math.Rand( -1, 1 ) )
 				particle:SetColor( math.Rand( 150, 255 ), math.Rand( 100, 150 ), 100 )
-				particle:VelocityDecay( false )
+				particle:SetAirResistance( 0 )
 			
 		end
 		
@@ -49,7 +49,7 @@ function EFFECT:Init( data )
 				particle:SetRoll( math.Rand( 0, 360 ) )
 				particle:SetRollDelta( math.Rand( -0.5, 0.5 ) )
 				particle:SetColor( 120, math.Rand( 100, 160 ), 255 )
-				particle:VelocityDecay( false )
+				particle:SetAirResistance( 0 )
 			
 		end
 				

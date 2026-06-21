@@ -34,8 +34,12 @@ function ENT:Initialize()
 		phys:EnableCollisions( false )		
 	end
 	
-	local Time = mathx.Rand( 9, 10 )
-	timer.Simple( Time, self.RemoveMe, self )
+	local Time = math.Rand( 9, 10 )
+	timer.Simple( Time, function()
+		if IsValid( self ) then
+			self:RemoveMe()
+		end
+	end)
 	
 	self.Entity:SetNetworkedFloat( 0, CurTime() + Time )
 	
@@ -54,6 +58,41 @@ function ENT:OnRemove()
 	NUM_FIRES = NUM_FIRES - 1
 end
 
+function ENT:SetFireTime( pl, add )
+	if not IsValid( pl ) then
+		return
+	end
+    pl:SetNetworkedFloat( "FireTime", CurTime() + add)
+end
+
+function ENT:SetVar( pl, name, value )
+    if not IsValid( pl ) then return end
+
+    if IsEntity( value ) then
+        pl:SetNWEntity( name, value )
+    elseif isnumber( value ) then
+        pl:SetNWFloat( name, value )
+    elseif isstring( value ) then
+        pl:SetNWString( name, value )
+    elseif isbool( value ) then
+        pl:SetNWBool( name, value )
+    else
+        print("Warning: Attempted to set NW var with unsupported type: " .. type( value ) )
+    end
+
+    -- pl:SetNetworkedFloat( name, value )
+end
+
+function ENT:GMDM_Ignite( attacker )
+	if not IsValid( attacker ) then
+		print( "DEBUG: GMDM_Ignite was called, but attacker is invalid/nil!" )
+		debug.Trace()
+		return 
+	end
+
+	self:SetFireTime( attacker, 5 )
+	self:SetVar( "FireAttacker", attacker )
+end
 
 /*---------------------------------------------------------
    Name: Touch
@@ -62,7 +101,7 @@ function ENT:Touch( entity )
 
 	if (!entity:IsPlayer()) then return end
 	
-	entity:GMDM_Ignite( self.Entity:GetOwner() )
+	self:GMDM_Ignite( self.Entity:GetOwner() )
 
 end
 

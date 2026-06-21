@@ -8,6 +8,22 @@ SWEP.DrawCrosshair		= true
 SWEP.ViewModel			= "models/weapons/v_smg1.mdl"
 SWEP.WorldModel			= "models/weapons/w_smg1.mdl"
 
+function SWEP:TraceLine( distance )
+	local owner = self:GetOwner()
+
+	if not IsValid( owner ) then return end
+
+	local vStart = owner:GetShootPos()
+	local vForward = owner:GetAimVector()
+
+	local trace = {}
+	trace.start = vStart
+	trace.endpos = vStart + ( vForward * distance )
+	trace.filter = { self, owner }
+		
+	return util.TraceLine( trace )
+end
+
 function SWEP:Recoil( pitch, yaw )
 	if ( SERVER && game.SinglePlayer == true ) then 
 		self:SendLua( "LocalPlayer():Recoil("..pitch..","..yaw..")" )
@@ -60,7 +76,7 @@ function SWEP:PrimaryAttack()
 	
 if ( SERVER ) then
 
-	local tr = self.Owner:TraceLine( 300.0 )
+	local tr = self:TraceLine( 300.0 )
 	
 	if ( tr.Entity != NULL && tr.Entity:IsPlayer() ) then
 		

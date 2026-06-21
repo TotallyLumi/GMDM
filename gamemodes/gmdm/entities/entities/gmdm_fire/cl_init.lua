@@ -65,7 +65,7 @@ function ENT:Draw()
 	local PlyAngles 	= LocalPlayer():GetAngles()
 	self.ViewNormal 	= PlyAngles:Forward()
 	
-	self.Flame:SetMaterialFloat( "$alpha", Mul )
+	self.Flame:SetFloat( "$alpha", Mul )
 	render.SetMaterial( self.Flame )
 		
 	for k, v in pairs(self.Fires) do
@@ -74,7 +74,7 @@ function ENT:Draw()
 	
 	end
 
-	self.Glow:SetMaterialFloat( "$alpha", Mul )
+	self.Glow:SetFloat( "$alpha", Mul )
 	render.SetMaterial( self.Glow )
 	
 	local SizeFlicker = math.Rand( 1, 32 )
@@ -91,7 +91,7 @@ function ENT:DrawFire( tab, mul )
 	tab.Frame = tab.Frame + FrameTime() * tab.Speed
 	if (tab.Frame > 53) then tab.Frame = 0 end
 
-	self.Flame:SetMaterialFloat( "$frame", tab.Frame )
+	self.Flame:SetFloat( "$frame", tab.Frame )
 
 	render.DrawQuadEasy( tab.Pos,
 						 self.ViewNormal,
