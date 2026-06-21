@@ -14,7 +14,6 @@ The current weapons, that do work inside of this Gamemode are:
 Current weapons, that currently don't work:
 
 - Tripmine
+- Egon
 
 Current weapons, that currently haven't been tested:
-
-- Egon
