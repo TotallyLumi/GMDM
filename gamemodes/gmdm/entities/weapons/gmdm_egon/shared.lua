@@ -35,11 +35,15 @@ SWEP.Primary.DefaultClip	= 50
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "SMG1"
 
+function SWEP:GetCustomAmmo( name )
+	return self:GetNWInt( "ammo_" .. name )
+end
+
 function SWEP:Think()
 
 	if (!self.Owner || self.Owner == NULL) then return end
 	
-	if ( self.Owner:GetCustomAmmo( "egonenergy" ) <= 0 ) then
+	if ( self:GetCustomAmmo( "egonenergy" ) <= 0 ) then
 	
 		if ( self.Owner:KeyPressed( IN_ATTACK ) ) then
 		

@@ -56,17 +56,6 @@ function ENT:SetPickupType( name )
 
 end
 
-
--- function ENT:GetPickupName()
--- 	local t = PickupTypes[ self.GetPickupType() ]
-
--- 	if not t or not t.name then
--- 		return "GMDM Gun"
--- 	end
-
--- 	return tostring( t.name )
--- end
-
 function ENT:GetPickupName()
 	return PickupTypes[ self:GetPickupType() ].name
 end
@@ -74,16 +63,6 @@ end
 function ENT:GetPickupType( )
 	return self.Entity:GetNWInt( "pickuptype" )
 end
-
--- function ENT:GetNiceName()
--- 	local t = PickupTypes[ self:GetPickupType() ]
-
--- 	if not t or not t.nicename then
--- 		return "GMDM Gun"
--- 	end
-
--- 	return tostring( t.nicename )
--- end
 
 function ENT:GetNiceName()
 	return "" .. PickupTypes[ self:GetPickupType() ].nicename

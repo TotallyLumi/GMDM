@@ -1,6 +1,9 @@
 
 include('shared.lua')
 
+function SWEP:GetCustomAmmo( name )
+	return self:GetNWInt( "ammo_" .. name )
+end
 
 function SWEP:CustomAmmoDisplay()
 
@@ -8,7 +11,7 @@ function SWEP:CustomAmmoDisplay()
 	
 	self.AmmoDisplay.Draw = true
 	
-	self.AmmoDisplay.PrimaryClip 	= self.Owner:GetCustomAmmo( "egonenergy" )
+	self.AmmoDisplay.PrimaryClip 	= self:GetCustomAmmo( "egonenergy" )
 	self.AmmoDisplay.PrimaryAmmo 	= -1
 	self.AmmoDisplay.SecondaryAmmo 	= -1
 	
