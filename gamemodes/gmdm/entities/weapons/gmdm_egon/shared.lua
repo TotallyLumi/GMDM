@@ -39,6 +39,14 @@ function SWEP:GetCustomAmmo( name )
 	return self:GetNWInt( "ammo_" .. name )
 end
 
+function SWEP:SetCustomAmmo( name, num )
+	return self:SetNWInt( "ammo_" .. name, num )
+end
+
+function SWEP:AddCustomAmmo( name, num )
+	return self:SetCustomAmmo( name, self:GetCustomAmmo( name ) + num )
+end
+
 function SWEP:Think()
 
 	if (!self.Owner || self.Owner == NULL) then return end
@@ -101,7 +109,7 @@ function SWEP:UpdateAttack()
 	
 	self.Timer = CurTime() + 0.05
 	
-	self.Owner:AddCustomAmmo( "egonenergy", -1 )
+	self:AddCustomAmmo( "egonenergy", -1 )
 	
 	// We lag compensate here. This moves all the players back to the spots where they were
 	// when this player fired the gun (a ping time ago).
